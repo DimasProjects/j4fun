@@ -10,3 +10,5 @@ The second input parameter to jar is location of file in filesystem which is exp
 The second task was solved using SQL over Spark Dataset. Here initial first initial parameter is the same as mentioned above
 but the second one is path to directory where subtasks will be persisted. So, in case you provide '/s2t/' directory as second 
 parameter, you will get: /s2t/median.csv, /s2t/classification.csv, /s2t/ranked.csv.
+
+Also, keep in mind yo always can look through my sql file loacted in resources. It was my draft :)
