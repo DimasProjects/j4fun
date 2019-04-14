@@ -1,6 +1,6 @@
 # j4fun
 
-Java project built by maven.
+Java project built by maven. Key for first task - task1.Task{1/2}, for the second - task2.Task
 
 The first task was soled in two ways: first one - pure sql over Spark Daset, and final - DSL over Spark dataset.
 To check corectness of provided code please build project. Then run jar via command spark-submit --class task1.Task{1/2} --verbose j4fun-1.0.jar 'pathToFileReadFrom.csv' 'pathToWriteResultOfExecution.csv' as soon as you will get executable jar.
