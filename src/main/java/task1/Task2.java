@@ -24,11 +24,12 @@ public class Task2 {
 
     public static void main(String[] args){
 
-        if(args.length == 0){
+        if(args.length < 2){
             System.exit(-1);
         }
 
         String pathToFile = args[0];
+        String pathToWrite = args[1];
 
         SparkSession sparkSession = SparkSession
                 .builder()
@@ -85,6 +86,8 @@ public class Task2 {
                         "tt.sessionEndTime", "tt.sessionId");
 
         init.show();
+
+        init.write().csv(pathToWrite);
 
         sparkSession.close();
 

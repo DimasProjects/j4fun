@@ -54,3 +54,16 @@ from (
 ) group by category, description
 
 --For each category find top 10 products ranked by time spent by users on product pages
+
+  select category,
+    product,
+    row_number() over(partition by category order by sumTime desc) as rank
+    from (
+      select category, product, sum(unix_timestamp(maxInGroup) - unix_timestamp(minInGroup)) as sumTime
+      from(
+        select category, product,
+          min(sessionStartTime) over(partition by category, sessionId order by sessionStartTime) as minInGroup,
+          max(sessionEndTime) over(partition by category, sessionId order by sessionEndTime) as maxInGroup
+          from Analysis
+      ) group by category, product
+    )

@@ -95,6 +95,19 @@ public class Task {
         classification.write().csv(pathToResultDirectory + "/classification.csv");
 
         //For each category find top 10 products ranked by time spent by users on product pages
+        Dataset<Row> rank = sparkSession.sql("select category,\n" +
+                "    product,\n" +
+                "    row_number() over(partition by category order by sumTime desc) as rank\n" +
+                "    from (\n" +
+                "      select category, product, sum(unix_timestamp(maxInGroup) - unix_timestamp(minInGroup)) as sumTime\n" +
+                "      from(\n" +
+                "        select category, product,\n" +
+                "          min(sessionStartTime) over(partition by category, sessionId order by sessionStartTime) as minInGroup,\n" +
+                "          max(sessionEndTime) over(partition by category, sessionId order by sessionEndTime) as maxInGroup\n" +
+                "          from Analysis\n" +
+                "      ) group by category, product\n" +
+                "    )");
+        rank.write().csv(pathToResultDirectory + "/rank.csv");
     }
 
 }
